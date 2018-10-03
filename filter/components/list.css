@@ -1,0 +1,8 @@
+.ListWords .list {
+    display: flex;
+    flex-direction: column;
+    width: 242px;
+    border: solid black 1px;
+    padding: 5px;
+    margin-top: 20px;
+}

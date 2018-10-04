@@ -18,23 +18,21 @@ let ListWords = React.createClass({
         }
     },
     clickFilterList:function(e){
-        console.log(e.target.value);
-        this.setState({filter: e.target.value}, this.sortList);
+        this.setState({filter: e.target.value}, this.processList);
     },
     clickSortList:function(e){
-
-        this.setState({sort: e.target.checked}, this.sortList);
+        this.setState({sort: e.target.checked}, this.processList);
     },
-    sortList:function(){
+    processList:function(){
         let words = this.props.words.slice();
-        console.log(words);
+
         if(this.state.filter){
             words = words.filter(word => word.indexOf(this.state.filter) > 0);
         }
         if(this.state.sort){
             words.sort();
         }
-        console.log(words);
+
         this.setState({words:words});
     },
     render:function () {

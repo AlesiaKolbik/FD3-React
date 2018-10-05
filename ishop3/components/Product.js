@@ -15,7 +15,7 @@ class Product extends React.Component{
         id: PropTypes.number.isRequired,
         buttonFunct: PropTypes.func.isRequired,
         select: PropTypes.func.isRequired,
-        selectedLine:PropTypes.number
+        selectedLine:PropTypes.string
     };
     clickDelete = (e) =>{
         if(e.target === e.currentTarget) {

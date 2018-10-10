@@ -1,0 +1,20 @@
+
+.formProduct {
+   font-size: 15px;
+}
+.formProduct form{
+    display: flex;
+    width: 400px;
+    flex-wrap: wrap;
+}
+.formProduct label{
+    width: 20%;
+}
+
+.formProduct input{
+    margin-top: 10px;
+}
+.formProduct form input{
+    width:70%;
+    margin-top: 0;
+}

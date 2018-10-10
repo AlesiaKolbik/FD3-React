@@ -1,7 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import catalogueEvents from './events.js';
+
 import Product from './Product.js';
+import CatalogueTitle from './catalogueTitle.js'
+import InfoBlock from './InfoBlock.js'
+import FormProduct from './FormProduct.js'
 
 import './catalogue.css';
 
@@ -25,40 +30,82 @@ class Catalogue extends React.Component{
 };
     state = {
             products:this.props.products,
-            selected:null
+            selected:null,
+            edit:false,
+            info:false,
+            valid:false
         };
 
-    deleteItemFromlist = (id) => {
+    productRemove = (id) => {
         let productsList = this.state.products;
         productsList = productsList.filter(item => item.id != id);
-        this.setState({products:productsList})
+        this.setState({products:productsList, info:false, form:false, productEdit:null});
     };
-    selectProduct = (id) =>{
-        this.setState({selected: id});
-        console.log('selected');
+    productSelect = (id) =>{
+        let product = this.state.products.filter(item =>
+            item.id == id
+        );
+        let price = product[0].price;
+        let descr = product[0].description;
+        let nameProduct = product[0].productName;
+        this.setState({selected: id, info:true, description:descr,showProduct:nameProduct, showPrice:price, form:false});
+
+    };
+    productEdit = (id) =>{
+        let productInfo = {};
+        let item = this.state.products.filter(item =>
+        item.id == id);
+        productInfo["id"] = item[0].id;
+        productInfo["name"] = item[0].productName;
+        productInfo["price"] = item[0].price;
+        productInfo["url"] = item[0].urlPictures;
+        productInfo["quantity"] = item[0].count;
+        this.setState({info:false, productId:id,form:true, type:"edit", editProduct:productInfo});
+    };
+    addNewProduct = () =>{
+        let id = Math.floor(Math.random()*10 + 1000);
+        this.setState({info:false, form:true, productId:id, type:"add"});
+    };
+    formHidden = () =>{
+        this.setState({form:false});
+    };
+    componentDidMount = () => {
+        catalogueEvents.addListener('EProductSelect',this.productSelect);
+        catalogueEvents.addListener('EProductRemove',this.productRemove);
+        catalogueEvents.addListener('EProductEdit',this.productEdit);
+        catalogueEvents.addListener('FormHidden', this.formHidden);
+    };
+
+    componentWillUnmount = () => {
+        catalogueEvents.removeListener('EProductSelect',this.productSelect);
+        catalogueEvents.removeListener('EProductRemove',this.productRemove);
+        catalogueEvents.removeListener('EProductEdit',this.productEdit);
+        catalogueEvents.addListener('FormHidden', this.formHidden);
     };
     render() {
         let productBlocks = this.state.products.map(item =>
             <Product key = {item.id} src ={item.urlPictures}
                 productName = {item.productName} price={item.price} count={item.count} id={item.id}
-                buttonFunct={this.deleteItemFromlist} select={this.selectProduct} selectedLine={this.state.selected}
+                selectedLine={this.state.selected}
             />
         );
         return (<div className="Catalogue">
             <table className = "ProductsTable">
             <thead>
-            <tr>
-                <td>Name</td>
-                <td>Price</td>
-                <td>URL</td>
-                <td>Quantity</td>
-                <td>Control</td>
-            </tr>
+                <CatalogueTitle titleList={["Name","Price","URL","Quantity","Control"]}/>
             </thead>
                 <tbody>
                 {productBlocks}
                 </tbody>
             </table>
+            <button onClick={this.addNewProduct}>New Product</button>
+            {(this.state.info)?
+                <InfoBlock name={this.state.showProduct} description={this.state.description} price={this.state.showPrice}/>
+                : null
+            }
+            {(this.state.form)?
+            <FormProduct type={this.state.type} id={this.state.productId} edit={this.state.editProduct}/>
+            :null}
             </div>)
 
     };

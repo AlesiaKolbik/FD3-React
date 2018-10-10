@@ -19,15 +19,6 @@ class FormProduct extends React.Component{
         let updateItem ={};
         console.log('update item');
     };
-    validForm = (e) =>{
-        if(e.target.value.length < 2){
-            let errorText = < ErrorText text={"Please, Fill the field.Value must be string."}/>;
-            this.setState({errorName:errorText});
-        }
-        else{
-            this.setState({errorName:null});
-        }
-    };
     handleCancel = () =>{
         catalogueEvents.emit('FormHidden', true);
     };
@@ -35,6 +26,9 @@ class FormProduct extends React.Component{
         if(!this.validName(e.target.value)){
             let errorText = < ErrorText text={"Please, Fill the field.Value must be string."}/>;
             this.setState({errorName:errorText})
+        }
+        else{
+            this.setState({errorName:null});
         }
     };
     validName =(value) =>{
@@ -47,6 +41,9 @@ class FormProduct extends React.Component{
         if(!this.validPrice(e.target.value)){
             let errorText = < ErrorText text={"Please, Fill the field.Value must be rational number great than 0."}/>;
             this.setState({errorName:errorText})
+        }
+        else{
+            this.setState({errorName:null});
         }
     };
     validPrice = (value)=>{
@@ -77,15 +74,15 @@ class FormProduct extends React.Component{
                         <p><label>Quantity</label>
                         <input type='text' onChange={this.updateQuantity} /></p>
                     </form>
-                    :<form key={this.props.id} onChange={this.validForm}>
+                    :<form key={this.props.id}>
                         <p><label>Name</label>
-                        <input type='text' defaultValue={this.props.edit.name}/>{this.state.errorName}</p>
+                        <input type='text' onChange={this.updateName} defaultValue={this.props.edit.name}/>{this.state.errorName}</p>
                         <p><label>Price</label>
-                        <input type='text' defaultValue={this.props.edit.price}/>{this.state.errorPrice}</p>
+                        <input type='text' onChange={this.updatePrice} defaultValue={this.props.edit.price}/>{this.state.errorPrice}</p>
                         <p><label>URL</label>
-                        <input type='text' defaultValue={this.props.edit.url}/>{this.state.errorUrl}</p>
+                        <input type='text' onChange={this.updateUrl} defaultValue={this.props.edit.url}/>{this.state.errorUrl}</p>
                         <p><label>Quantity</label>
-                        <input type='text' defaultValue={this.props.edit.quantity}/>{this.state.errorQuantity}</p>
+                        <input type='text' onChange={this.updateQuantity} defaultValue={this.props.edit.quantity}/>{this.state.errorQuantity}</p>
                     </form>
                 }
                 {(this.props.type === "add")

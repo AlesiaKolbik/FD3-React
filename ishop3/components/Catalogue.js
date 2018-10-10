@@ -17,7 +17,7 @@ class Catalogue extends React.Component{
             PropTypes.shape({
                 id: PropTypes.number.isRequired,
                 productName: PropTypes.string.isRequired,
-                price: PropTypes.string.isRequired,
+                price: PropTypes.number.isRequired,
                 count: PropTypes.number.isRequired,
                 urlPictures: PropTypes.string.isRequired
             })

@@ -13,7 +13,7 @@ class Product extends React.Component{
     static propTypes={
         src: PropTypes.string.isRequired,
         productName: PropTypes.string.isRequired,
-        price: PropTypes.string.isRequired,
+        price: PropTypes.number.isRequired,
         count: PropTypes.number.isRequired,
         id: PropTypes.number.isRequired
     };

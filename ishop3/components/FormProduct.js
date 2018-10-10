@@ -4,16 +4,25 @@ import catalogueEvents from "./events";
 
 import './formProduct.css';
 
+import ErrorText from './ErrorText.js';
+
 class FormProduct extends React.Component{
     state = {
         buttonActive:true,
-        valid:false
+        valid:false,
+        errorName:null
     };
     handleUpdateInfo = ()=>{
         let updateItem ={};
     };
     validForm = (e) =>{
-
+        if(e.target.value.length < 2){
+            let errorText = < ErrorText text={"Please, Fill the field.Value must be string."}/>;
+            this.setState({errorName:errorText});
+        }
+        else{
+            this.setState({errorName:null});
+        }
     };
     handleCancel = () =>{
         catalogueEvents.emit('FormHidden', true);
@@ -21,32 +30,33 @@ class FormProduct extends React.Component{
     render(){
         return(
             <div className="formProduct">
-                {
+               <div className="headerForm"> {
                 (this.props.type === "add")
                     ? <h2>Add new product</h2>
                     : <h2>Edit existing product</h2>
                 }
                 <p>Id:{this.props.id}</p>
+               </div>
                 {(this.props.type === "add")
                     ? <form key={this.props.id} onChange={this.validForm}>
-                        <label>Name</label>
-                        <input type='text' />
-                        <label>Price</label>
-                        <input type='text'/>
-                        <label>URL</label>
-                        <input type='text'/>
-                        <label>Quantity</label>
-                        <input type='text'/>
+                        <p><label>Name</label>
+                        <input type='text' /></p>
+                        <p><label>Price</label>
+                        <input type='text'/></p>
+                        <p><label>URL</label>
+                        <input type='text'/></p>
+                        <p><label>Quantity</label>
+                        <input type='text'/></p>
                     </form>
                     :<form key={this.props.id} onChange={this.validForm}>
-                        <label>Name</label>
-                        <input type='text' defaultValue={this.props.edit.name}/>
-                        <label>Price</label>
-                        <input type='text' defaultValue={this.props.edit.price}/>
-                        <label>URL</label>
-                        <input type='text' defaultValue={this.props.edit.url}/>
-                        <label>Quantity</label>
-                        <input type='text' defaultValue={this.props.edit.quantity}/>
+                        <p><label>Name</label>
+                        <input type='text' defaultValue={this.props.edit.name}/>{this.state.errorName}</p>
+                        <p><label>Price</label>
+                        <input type='text' defaultValue={this.props.edit.price}/></p>
+                        <p><label>URL</label>
+                        <input type='text' defaultValue={this.props.edit.url}/></p>
+                        <p><label>Quantity</label>
+                        <input type='text' defaultValue={this.props.edit.quantity}/></p>
                     </form>
                 }
                 {(this.props.type === "add")

@@ -1,20 +1,30 @@
 
 .formProduct {
    font-size: 15px;
+    border:solid 1px #5bbc78;
+    background: #bdd9be;
+    margin: 20px 0;
+    padding: 10px;
+}
+.formProduct .headerForm{
+    padding: 5px;
 }
 .formProduct form{
     display: flex;
-    width: 400px;
     flex-wrap: wrap;
 }
+.formProduct form p{
+    width: 100%;
+    margin: 3px;
+}
 .formProduct label{
-    width: 20%;
+    display: inline-block;
+    width: 80px;
 }
 
 .formProduct input{
     margin-top: 10px;
 }
 .formProduct form input{
-    width:70%;
     margin-top: 0;
 }

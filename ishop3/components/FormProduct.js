@@ -40,15 +40,16 @@ class FormProduct extends React.Component{
     updatePrice = (e) =>{
         if(!this.validPrice(e.target.value)){
             let errorText = < ErrorText text={"Please, Fill the field.Value must be rational number great than 0."}/>;
-            this.setState({errorName:errorText})
+            this.setState({errorPrice:errorText})
         }
         else{
-            this.setState({errorName:null});
+            this.setState({errorPrice:null});
         }
     };
     validPrice = (value)=>{
         value = parseFloat(value);
-        if(value%1 !== 0 && value <= 0){
+        console.log(value);
+        if(!value || value <= 0){
             return false;
         }
         return true;

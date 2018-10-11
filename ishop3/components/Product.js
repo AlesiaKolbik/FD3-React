@@ -35,7 +35,7 @@ class Product extends React.Component{
 
      render() {
          return (
-             <tr className={(this.props.selectedLine == this.props.id)
+             <tr className={(this.props.selectedLine === this.props.id)
                  ?'selected' :null} id = {this.props.id} onClick={this.productSelect}>
                     <td>{this.props.productName}</td>
                     <td>{this.props.price}</td>

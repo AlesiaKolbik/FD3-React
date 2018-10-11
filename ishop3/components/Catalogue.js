@@ -38,12 +38,12 @@ class Catalogue extends React.Component{
 
     productRemove = (id) => {
         let productsList = this.state.products;
-        productsList = productsList.filter(item => item.id != id);
+        productsList = productsList.filter(item => item.id !== id);
         this.setState({products:productsList, info:false, form:false, productEdit:null});
     };
     productSelect = (id) =>{
         let product = this.state.products.filter(item =>
-            item.id == id
+            item.id === id
         );
         let price = product[0].price;
         let descr = product[0].description;
@@ -54,7 +54,7 @@ class Catalogue extends React.Component{
     productEdit = (id) =>{
         let productInfo = {};
         let item = this.state.products.filter(item =>
-        item.id == id);
+        item.id === id);
         productInfo["id"] = item[0].id;
         productInfo["name"] = item[0].productName;
         productInfo["price"] = item[0].price;
@@ -63,24 +63,38 @@ class Catalogue extends React.Component{
         this.setState({info:false, productId:id,form:true, type:"edit", editProduct:productInfo});
     };
     addNewProduct = () =>{
-        let id = Math.floor(Math.random()*10 + 1000);
+        let id = Date.now();
         this.setState({info:false, form:true, productId:id, type:"add"});
     };
     formHidden = () =>{
         this.setState({form:false});
     };
+    updateProductList =(newProduct) =>{
+        let productList = this.state.products.slice();
+        let indexFoundItems = productList.findIndex(item =>
+        item.id === newProduct.id);
+        if(indexFoundItems >=0){
+            productList[indexFoundItems]= newProduct;
+        }
+        else{
+            productList.push(newProduct);
+        }
+        this.setState({products:productList,form:false});
+    };
     componentDidMount = () => {
         catalogueEvents.addListener('EProductSelect',this.productSelect);
         catalogueEvents.addListener('EProductRemove',this.productRemove);
         catalogueEvents.addListener('EProductEdit',this.productEdit);
-        catalogueEvents.addListener('FormHidden', this.formHidden);
+        catalogueEvents.addListener('EFormHidden', this.formHidden);
+        catalogueEvents.addListener('EUpdateProductList', this.updateProductList);
     };
 
     componentWillUnmount = () => {
         catalogueEvents.removeListener('EProductSelect',this.productSelect);
         catalogueEvents.removeListener('EProductRemove',this.productRemove);
         catalogueEvents.removeListener('EProductEdit',this.productEdit);
-        catalogueEvents.addListener('FormHidden', this.formHidden);
+        catalogueEvents.addListener('EFormHidden', this.formHidden);
+        catalogueEvents.addListener('EUpdateProductList', this.updateProductList);
     };
     render() {
         let productBlocks = this.state.products.map(item =>
@@ -104,7 +118,7 @@ class Catalogue extends React.Component{
                 : null
             }
             {(this.state.form)?
-            <FormProduct type={this.state.type} id={this.state.productId} edit={this.state.editProduct}/>
+            <FormProduct key={this.state.productId} type={this.state.type} id={this.state.productId} edit={this.state.editProduct}/>
             :null}
             </div>)
 

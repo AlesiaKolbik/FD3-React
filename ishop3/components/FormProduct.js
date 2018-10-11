@@ -15,20 +15,65 @@ class FormProduct extends React.Component{
         errorPrice:null,
         errorQuantity:null
     };
+    constructor(){
+        super();
+        this.newTextName = null;
+        this.newTextPrice = null;
+        this.newTextUrl = null;
+        this.newTextQuantity = null;
+    }
+    setNewName =(ref)=>{
+        this.newTextName = ref;
+    };
+    setNewPrice =(ref)=>{
+        this.newTextPrice = ref;
+    };
+    setNewUrl =(ref)=>{
+        this.newTextUrl = ref;
+    };
+    setNewQuantity =(ref)=>{
+        this.newTextQuantity = ref;
+    };
     handleUpdateInfo = ()=>{
+        if(this.newTextName){
+            this.updateName(this.newTextName.value);
+        }
+        if(this.newTextPrice){
+            this.updatePrice(this.newTextPrice.value);
+        }
+        if(this.newTextUrl){
+            this.updateUrl(this.newTextUrl.value);
+        }
+        if(this.newTextQuantity){
+            this.updateQuantity(this.newTextQuantity.value);
+        }
+    };
+    componentDidMount(){
+        this.handleUpdateInfo();
+    }
+    handleSaveButton=()=>{
         let updateItem ={};
-        console.log('update item');
+        if(this.state.valid){
+            updateItem['id'] = this.props.id;
+            updateItem['productName'] = this.newTextName.value;
+            updateItem['price'] = parseInt(this.newTextPrice.value);
+            updateItem['count'] = parseInt(this.newTextQuantity.value);
+            updateItem['urlPictures'] = this.newTextUrl.value;
+            updateItem['description'] = 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.';
+            catalogueEvents.emit('EUpdateProductList', updateItem);
+        }
     };
+
     handleCancel = () =>{
-        catalogueEvents.emit('FormHidden', true);
+        catalogueEvents.emit('EFormHidden', true);
     };
-    updateName = (e)=>{
-        if(!this.validName(e.target.value)){
+    updateName = (name)=>{
+        if(!this.validName(name)){
             let errorText = < ErrorText text={"Please, Fill the field.Value must be string."}/>;
-            this.setState({errorName:errorText})
+            this.setState({errorName:errorText,buttonActive:false,valid:false})
         }
         else{
-            this.setState({errorName:null});
+            this.setState({errorName:null,buttonActive:true,valid:true});
         }
     };
     validName =(value) =>{
@@ -37,13 +82,13 @@ class FormProduct extends React.Component{
         }
             return true;
     };
-    updatePrice = (e) =>{
-        if(!this.validNumber(e.target.value)){
+    updatePrice = (price) =>{
+        if(!this.validNumber(price)){
             let errorText = < ErrorText text={"Please, Fill the field.Value must be rational number great than 0."}/>;
-            this.setState({errorPrice:errorText})
+            this.setState({errorPrice:errorText,buttonActive:false,valid:false})
         }
         else{
-            this.setState({errorPrice:null});
+            this.setState({errorPrice:null,buttonActive:true,valid:true});
         }
     };
     validNumber = (value)=>{
@@ -52,13 +97,13 @@ class FormProduct extends React.Component{
         }
         return true;
     };
-    updateUrl = (e) =>{
-        if(!this.validUrl(e.target.value)){
-            let errorText = < ErrorText text={"Please, Fill the field.Value must be valid URL."}/>;
-            this.setState({errorUrl:errorText})
+    updateUrl = (url) =>{
+        if(!this.validUrl(url)){
+            let errorText = <ErrorText text={"Please, Fill the field.Value must be valid URL."}/>;
+            this.setState({errorUrl:errorText,buttonActive:false,valid:false})
         }
         else{
-            this.setState({errorUrl:null});
+            this.setState({errorUrl:null,buttonActive:true,valid:true});
         }
     };
     validUrl = (value)=>{
@@ -68,13 +113,13 @@ class FormProduct extends React.Component{
         }
         return true;
     };
-    updateQuantity = (e) =>{
-        if(!this.validNumber(e.target.value)){
-            let errorText = < ErrorText text={"Please, Fill the field.Value must be positive integer."}/>;
-            this.setState({errorQuantity:errorText})
+    updateQuantity = (quantity) =>{
+        if(!this.validNumber(quantity)){
+            let errorText = <ErrorText text={"Please, Fill the field.Value must be positive integer."}/>;
+            this.setState({errorQuantity:errorText,buttonActive:false,valid:false})
         }
         else{
-            this.setState({errorQuantity:null});
+            this.setState({errorQuantity:null,buttonActive:true,valid:true});
         }
     };
     render(){
@@ -88,30 +133,54 @@ class FormProduct extends React.Component{
                 <p>Id:{this.props.id}</p>
                </div>
                 {(this.props.type === "add")
-                    ? <form key={this.props.id}>
-                        <p><label>Name</label>
-                        <input type='text' onChange={this.updateName} /></p>
-                        <p><label>Price</label>
-                        <input type='number' onChange={this.updatePrice} /></p>
-                        <p><label>URL</label>
-                        <input type='url' onChange={this.updateUrl}/></p>
-                        <p><label>Quantity</label>
-                        <input type='number' onChange={this.updateQuantity} /></p>
+                    ? <form key={this.props.id} onChange={this.handleUpdateInfo}>
+                            <p>
+                                <label>Name</label>
+                                <input type='text' ref={this.setNewName} />
+                                {this.state.errorName}
+                            </p>
+                            <p>
+                                <label>Price</label>
+                                <input type='number' ref={this.setNewPrice}/>
+                                {this.state.errorPrice}
+                            </p>
+                            <p>
+                                <label>URL</label>
+                                <input type='url' ref={this.setNewUrl}/>
+                                {this.state.errorUrl}
+                            </p>
+                            <p>
+                                <label>Quantity</label>
+                            <input type='number' ref={this.setNewQuantity}/>
+                                {this.state.errorQuantity}
+                            </p>
                     </form>
-                    :<form key={this.props.id}>
-                        <p><label>Name</label>
-                        <input type='text' onChange={this.updateName} defaultValue={this.props.edit.name}/>{this.state.errorName}</p>
-                        <p><label>Price</label>
-                        <input type='number' onChange={this.updatePrice} defaultValue={this.props.edit.price}/>{this.state.errorPrice}</p>
-                        <p><label>URL</label>
-                        <input type='url' onChange={this.updateUrl} defaultValue={this.props.edit.url}/>{this.state.errorUrl}</p>
-                        <p><label>Quantity</label>
-                        <input type='number' onChange={this.updateQuantity} defaultValue={this.props.edit.quantity}/>{this.state.errorQuantity}</p>
+                    :<form key={this.props.id} onChange={this.handleUpdateInfo}>
+                            <p>
+                                <label>Name</label>
+                                <input type='text' defaultValue={this.props.edit.name} ref={this.setNewName}/>
+                                {this.state.errorName}
+                            </p>
+                            <p>
+                                <label>Price</label>
+                                <input type='number' defaultValue={this.props.edit.price} ref={this.setNewPrice}/>
+                                {this.state.errorPrice}
+                            </p>
+                            <p>
+                                <label>URL</label>
+                                <input type='url' defaultValue={this.props.edit.url} ref={this.setNewUrl}/>
+                                {this.state.errorUrl}
+                            </p>
+                            <p>
+                                <label>Quantity</label>
+                                <input type='number' defaultValue={this.props.edit.quantity} ref={this.setNewQuantity}/>
+                                {this.state.errorQuantity}
+                             </p>
                     </form>
                 }
                 {(this.props.type === "add")
-                    ? <input type="button" value="Add" disabled={this.state.buttonActive} onClick={this.handleUpdateInfo}/>
-                    : <input type="button" value="Save" disabled={this.state.buttonActive} onClick={this.handleUpdateInfo}/>
+                    ? <input type="button" value="Add" disabled={!this.state.buttonActive} onClick={this.handleSaveButton}/>
+                    : <input type="button" value="Save" disabled={!this.state.buttonActive} onClick={this.handleSaveButton}/>
                 }
                 <input type="button" value="Cancel" onClick={this.handleCancel}/>
             </div>

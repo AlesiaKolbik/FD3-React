@@ -7,17 +7,20 @@ export default class Br2jsx extends React.Component{
     text:PropTypes.string.isRequired
     };
     componentWillMount(){
-        let string = this.props.text;
-        let arr = string.split('<br>');
-        arr = arr.map((item,i)=>
-            <span key={i}>{item}<br/></span>);
-        this.setState({text:arr});
+
     }
 
     render(){
+        let string = this.props.text;
+        let arr = string.split('<br>');
+        let text = [];
+        arr.forEach((item,i) => {
+            if(i)text.push(<br/>);
+            text.push(item);
+        });
         return(
             <div>
-                {this.state.text}
+                {text}
             </div>
         )
     }

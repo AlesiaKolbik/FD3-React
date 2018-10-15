@@ -24,20 +24,19 @@ let Catalogue = React.createClass({
             selected:null
         };
     },
-    deleteItemFromlist: function(id){
+    deleteItemFromList: function(id){
         let productsList = this.state.products;
-        productsList = productsList.filter(item => item.id != id);
+        productsList = productsList.filter(item => item.id !== id);
         this.setState({products:productsList});
     },
     selectProduct:function(id){
         this.setState({selected: id});
-        console.log('selected');
     },
     render: function () {
         let productBlocks = this.state.products.map(item =>
             React.createElement(Product, {key: item.id, src: item.urlPictures,
                 productName: item.productName, price: item.price, count: item.count,id:item.id,
-                buttonFunct:this.deleteItemFromlist,select:this.selectProduct,selectedLine:this.state.selected
+                buttonFunct:this.deleteItemFromList,select:this.selectProduct,selectedLine:this.state.selected
             }),
         );
         return React.DOM.div({className: 'Catalogue'},

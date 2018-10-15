@@ -6,21 +6,17 @@ import './product.css';
 let Product = React.createClass({
     displayName:'Product',
     clickDelete:function(e){
-        if(e.target == e.currentTarget) {
-            let id = e.target.getAttribute('data');
-            this.props.buttonFunct(id);
+        if(e.target === e.currentTarget) {
+            this.props.buttonFunct(this.props.id);
         }
     },
     clickOnLine:function(e){
-        console.log(e.target);
-        console.log(e.currentTarget);
         if(e.target !== e.currentTarget) {
-            console.log(e.target !== e.currentTarget);
-            this.props.select(e.currentTarget.id);
+            this.props.select(this.props.id);
         }
     },
      render:function() {
-         return React.DOM.tr({className:(this.props.selectedLine == this.props.id)
+         return React.DOM.tr({className:(this.props.selectedLine === this.props.id)
                  ?'selected'
                  :null,
                  id:this.props.id, onClick: this.clickOnLine},

@@ -6,9 +6,6 @@ export default class Br2jsx extends React.Component{
     static propTypes={
     text:PropTypes.string.isRequired
     };
-    componentWillMount(){
-
-    }
 
     render(){
         let string = this.props.text;

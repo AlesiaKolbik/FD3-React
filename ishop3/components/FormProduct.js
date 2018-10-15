@@ -8,7 +8,7 @@ import ErrorText from './ErrorText.js';
 
 class FormProduct extends React.Component{
     state = {
-        buttonActive:true,
+        buttonActive:false,
         valid:false,
         errorName:null,
         errorUrl:null,
@@ -35,17 +35,24 @@ class FormProduct extends React.Component{
         this.newTextQuantity = ref;
     };
     handleUpdateInfo = ()=>{
-        if(this.newTextName){
-            this.updateName(this.newTextName.value);
+        let counter = 0;
+        if(this.newTextName && !this.updateName(this.newTextName.value)){
+            counter++;
         }
-        if(this.newTextPrice){
-            this.updatePrice(this.newTextPrice.value);
+        if(this.newTextPrice && !this.updatePrice(this.newTextPrice.value)){
+            counter++;
         }
-        if(this.newTextUrl){
-            this.updateUrl(this.newTextUrl.value);
+        if(this.newTextUrl && !this.updateUrl(this.newTextUrl.value)){
+            counter++;
         }
-        if(this.newTextQuantity){
-            this.updateQuantity(this.newTextQuantity.value);
+        if(this.newTextQuantity && !this.updateQuantity(this.newTextQuantity.value)){
+            counter++;
+        }
+        if(counter !== 0){
+            this.setState({valid:false, buttonActive:false});
+        }
+        else{
+            this.setState({valid:true, buttonActive:true});
         }
     };
     componentDidMount(){
@@ -70,10 +77,12 @@ class FormProduct extends React.Component{
     updateName = (name)=>{
         if(!this.validName(name)){
             let errorText = < ErrorText text={"Please, Fill the field.Value must be string."}/>;
-            this.setState({errorName:errorText,buttonActive:false,valid:false})
+            this.setState({errorName:errorText});
+            return false;
         }
         else{
-            this.setState({errorName:null,buttonActive:true,valid:true});
+            this.setState({errorName:null});
+            return true;
         }
     };
     validName =(value) =>{
@@ -85,10 +94,12 @@ class FormProduct extends React.Component{
     updatePrice = (price) =>{
         if(!this.validNumber(price)){
             let errorText = < ErrorText text={"Please, Fill the field.Value must be rational number great than 0."}/>;
-            this.setState({errorPrice:errorText,buttonActive:false,valid:false})
+            this.setState({errorPrice:errorText});
+            return false;
         }
         else{
-            this.setState({errorPrice:null,buttonActive:true,valid:true});
+            this.setState({errorPrice:null});
+            return true;
         }
     };
     validNumber = (value)=>{
@@ -100,10 +111,12 @@ class FormProduct extends React.Component{
     updateUrl = (url) =>{
         if(!this.validUrl(url)){
             let errorText = <ErrorText text={"Please, Fill the field.Value must be valid URL."}/>;
-            this.setState({errorUrl:errorText,buttonActive:false,valid:false})
+            this.setState({errorUrl:errorText});
+            return false;
         }
         else{
-            this.setState({errorUrl:null,buttonActive:true,valid:true});
+            this.setState({errorUrl:null});
+            return true;
         }
     };
     validUrl = (value)=>{
@@ -116,10 +129,12 @@ class FormProduct extends React.Component{
     updateQuantity = (quantity) =>{
         if(!this.validNumber(quantity)){
             let errorText = <ErrorText text={"Please, Fill the field.Value must be positive integer."}/>;
-            this.setState({errorQuantity:errorText,buttonActive:false,valid:false})
+            this.setState({errorQuantity:errorText});
+            return false;
         }
         else{
-            this.setState({errorQuantity:null,buttonActive:true,valid:true});
+            this.setState({errorQuantity:null});
+            return true;
         }
     };
     render(){

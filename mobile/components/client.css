@@ -1,0 +1,9 @@
+
+.Client td{
+    border: 1px solid black;
+    font-size: 15px;
+    padding: 0 5px;
+}
+.Client td:first-child{
+    width: 200px;
+}

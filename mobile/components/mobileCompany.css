@@ -1,0 +1,9 @@
+.ClientsList table{
+    border-collapse: collapse;
+}
+
+.message{
+    border: solid greenyellow 1px;
+    color: greenyellow;
+    margin: 20px 0;
+}

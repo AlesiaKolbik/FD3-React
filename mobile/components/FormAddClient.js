@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import mobileCompanyEvents from './eventsEmmiter.js';
-import './form.css';
+// import './form.css';
 
 
 export default class FormAddClient extends React.PureComponent{

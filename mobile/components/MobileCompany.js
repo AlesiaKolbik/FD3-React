@@ -4,7 +4,7 @@ import Client from './Client.js';
 import equal from 'deep-equal';
 import mobileCompanyEvents from './eventsEmmiter.js';
 import FormAddClient from './FormAddClient.js';
-import './mobileCompany.css';
+// import './mobileCompany.css';
 export default class MobileCompany extends React.PureComponent{
     // constructor(){
     //     super();
@@ -132,7 +132,7 @@ export default class MobileCompany extends React.PureComponent{
     render(){
         console.log("MobileCompany render");
         let clientsList;
-        switch(this.state.filter){
+        switch(this.state.filter){ 
             case 'all':
                 clientsList = this.state.clientsList;
                 break;

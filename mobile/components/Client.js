@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import mobileCompanyEvents from './eventsEmmiter.js';
-import './client.css';
+// import './client.css';
 
 
 export default class Client extends React.PureComponent{

@@ -1,5 +1,5 @@
 
-import ClientsList from './ClientsList.js';
+import ClientsList from '../ClientsList.js';
 
 let clientsData =[{id:12},{id:25}];
 let clientsList = new ClientsList(clientsData);

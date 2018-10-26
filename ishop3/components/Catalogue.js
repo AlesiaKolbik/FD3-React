@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import catalogueEvents from './events.js';
 
 import Product from './Product.js';
-import CatalogueTitle from './catalogueTitle.js'
+import CatalogueTitle from './CatalogueTitle.js'
 import InfoBlock from './InfoBlock.js'
 import FormProduct from './FormProduct.js'
 
@@ -49,7 +49,6 @@ class Catalogue extends React.Component{
         let descr = product[0].description;
         let nameProduct = product[0].productName;
         this.setState({selected: id, info:true, description:descr,showProduct:nameProduct, showPrice:price, form:false});
-
     };
     productEdit = (id) =>{
         let productInfo = {};
@@ -93,14 +92,14 @@ class Catalogue extends React.Component{
         catalogueEvents.removeListener('EProductSelect',this.productSelect);
         catalogueEvents.removeListener('EProductRemove',this.productRemove);
         catalogueEvents.removeListener('EProductEdit',this.productEdit);
-        catalogueEvents.addListener('EFormHidden', this.formHidden);
-        catalogueEvents.addListener('EUpdateProductList', this.updateProductList);
+        catalogueEvents.removeListener('EFormHidden', this.formHidden);
+        catalogueEvents.removeListener('EUpdateProductList', this.updateProductList);
     };
     render() {
         let productBlocks = this.state.products.map(item =>
             <Product key = {item.id} src ={item.urlPictures}
                 productName = {item.productName} price={item.price} count={item.count} id={item.id}
-                selectedLine={this.state.selected}
+                selectedLine = {this.state.selected}
             />
         );
         return (<div className="Catalogue">

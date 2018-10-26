@@ -158,9 +158,9 @@ export default class MobileCompany extends React.PureComponent{
                 </table>
                 <input type='button' value='Add new client' onClick={this.handleAddNewClient}/>
                 <div>
-                    <input type="button" value={'Show all active'} onClick={this.handleFilterByActivity}/>
-                    <input type="button" value={'Show all blocked'} onClick={this.handleFilterByLock}/>
-                    <input type="button" value={'Show all'} onClick={this.handleShowAll}/>
+                    <input type="button" className ='showActive' value={'Show all active'} onClick={this.handleFilterByActivity}/>
+                    <input type="button" className ='showLock' value={'Show all blocked'} onClick={this.handleFilterByLock}/>
+                    <input type="button" className ='showAll' value={'Show all'} onClick={this.handleShowAll}/>
                 </div>
                 {(this.state.editBlock)?
                 <FormAddClient key={this.state.editInfo.id} clientInfo={this.state.editInfo}/>

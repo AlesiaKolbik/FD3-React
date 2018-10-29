@@ -4,7 +4,7 @@ import Client from './Client.js';
 import equal from 'deep-equal';
 import mobileCompanyEvents from './eventsEmmiter.js';
 import FormAddClient from './FormAddClient.js';
-// import './mobileCompany.css';
+import './mobileCompany.css';
 export default class MobileCompany extends React.PureComponent{
     // constructor(){
     //     super();

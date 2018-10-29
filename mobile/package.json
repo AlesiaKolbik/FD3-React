@@ -8,6 +8,12 @@
     "livebuild": ".\\node_modules\\.bin\\webpack-dev-server --progress --colors",
     "test": "jest"
   },
+  "jest": {
+    "moduleNameMapper": {
+      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "./mobile/__mocks__/fileMock.js",
+      "\\.(css|less)$": "identity-obj-proxy"
+    }
+  },
   "author": "",
   "license": "ISC",
   "devDependencies": {
@@ -30,6 +36,7 @@
     "deep-equal": "^1.0.1",
     "eslint-config-react-app": "^3.0.4",
     "events": "^3.0.0",
+    "identity-obj-proxy": "^3.0.0",
     "prop-types": "^15.6.0",
     "react": "^16.0.0",
     "react-dom": "^16.0.0"

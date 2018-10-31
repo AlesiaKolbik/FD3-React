@@ -20,11 +20,8 @@ class Scales {
     }
 
     getNameList(): Array<string> {
-        let result = [];
-        let name: string;
-        this.productList.forEach(item => {
-            name = item.getName();
-            result.push(name);
+        let result = this.productList.map(item => {
+            return item.getName();
         });
         return result;
     }

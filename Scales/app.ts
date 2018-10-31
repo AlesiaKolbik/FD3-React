@@ -1,35 +1,32 @@
-// import Apple from './Apple.js';
-// import Tomato from './Tomato.js';
-// import Scales from './Scales.js';
-// import Product from './Product.js';
-class Scales{
-    productList:Array<any>;
-    constructor(){
+class Scales {
+    productList: Array<Product>;
+
+    constructor() {
         this.productList = [];
     }
-    addProduct(product:Product):void{
-        this.productList = [...this.productList, product];
+
+    addProduct(product: Product): void {
+        this.productList.push(product);
     }
-    getSumScale():string{
+
+    getSumScale(): number {
         let scale: number;
-        let result:number = 0;
+        let result: number = 0;
         this.productList.map(item => {
-                scale = item.getScale();
-                result+=scale;
+            scale = item.getScale();
+            result += scale;
         });
-        return result+' gr.';
+        return result;
     }
-    showNameList():void{
+
+    getNameList(): Array<string> {
         let result = [];
-        let name:string;
-        this.productList.map(item =>{
+        let name: string;
+        this.productList.forEach(item => {
             name = item.getName();
             result.push(name);
         });
-        console.log('List of products: ');
-        for(let i=0;i<result.length;i++){
-            console.log((i+1)+': ' + result[i]);
-        }
+        return result;
     }
 }
 
@@ -84,5 +81,5 @@ scales.addProduct(apple);
 scales.addProduct(tomato);
 scales.addProduct(cucumber);
 console.log('Total weight: ' + scales.getSumScale());
-scales.showNameList();
+console.log(scales.getNameList());
 

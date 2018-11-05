@@ -10,29 +10,31 @@ class Scales{
     }
 
     getSumScale(): number {
-        let scale: number;
         let result: number = 0;
-        this.productList.map(item => {
-            scale = item.getScale();
-            result += scale;
-        });
+        for(let i=0;i<this.productList.length;i++){
+            result += this.productList[i].getScale();
+        }
         return result;
     }
 
     getNameList(): Array<string> {
-        let result = this.productList.map(item => {
-            return item.getName();
-        });
+        let result = [];
+        for(let i=0;i<this.productList.length;i++){
+            result.push(this.productList[i].getName());
+        }
         return result;
     }
 }
 
-abstract class Product{
-    readonly scale:number;
-    protected constructor(scale:number){
-        this.scale = scale;
+class Product{
+    getName():string{
+        return
+    }
+    getScale():number{
+        return
     }
 }
+
 interface IScalable {
 getName():string;
 getScale():number;
@@ -40,12 +42,11 @@ getScale():number;
 
 class Apple extends Product implements IScalable{
     readonly name:string;
-    constructor(scale:number){
-        super(scale);
-        this.name = 'apple';
+    constructor(private scale:number){
+        super();
     }
     getName():string{
-        return this.name;
+        return 'apple';
     }
     getScale():number{
         return this.scale;
@@ -53,12 +54,11 @@ class Apple extends Product implements IScalable{
 }
 class Tomato extends Product implements IScalable{
     readonly name:string;
-    constructor(scale:number){
-        super(scale);
-        this.name = 'tomato';
+    constructor(private scale:number){
+        super();
     }
     getName():string{
-        return this.name;
+        return 'tomato';
     }
     getScale():number{
         return this.scale;

@@ -27,56 +27,50 @@ class Scales {
     }
 }
 
-abstract class Product{
-    readonly scale:number;
-    protected constructor(scale:number){
-        this.scale = scale;
+class Product{
+    protected constructor(){
     }
     getScale():number{
-        return this.scale;
+        return
     }
-    abstract getName():string;
+    getName():string{
+        return
+    }
 }
 
 class Apple extends Product{
-    readonly name:string;
-    constructor(scale:number){
-        super(scale);
-        this.name = 'apple';
+    constructor( private scale:number, private name:string){
+        super();
+    }
+    getScale():number{
+        return this.scale
     }
     getName():string{
-        return this.name;
+        return this.name
     }
+
 }
 class Tomato extends Product{
-    readonly name:string;
-    constructor(scale:number){
-        super(scale);
-        this.name = 'tomato';
+    constructor( private scale:number, private name:string){
+        super();
+    }
+    getScale():number{
+        return this.scale
     }
     getName():string{
-        return this.name;
-    }
-}
-class Cucumber extends Product{
-    readonly name:string;
-    constructor(scale:number){
-        super(scale);
-        this.name = 'cucumber';
-    }
-    getName():string{
-        return this.name;
+        return this.name
     }
 }
 
+
 let scales = new Scales();
-let apple = new Apple(250);
-let tomato = new Tomato(205);
-let cucumber = new Cucumber(500);
+let apple = new Apple(100,"apple1");
+let tomato = new Tomato(50,"tomato1");
+let apple2 = new Apple(88,"apple2");
 
 scales.addProduct(apple);
 scales.addProduct(tomato);
-scales.addProduct(cucumber);
+scales.addProduct(apple2);
 console.log('Total weight: ' + scales.getSumScale());
 console.log(scales.getNameList());
 

@@ -1,4 +1,4 @@
 <div class="sprite">
-    <img class="icon" (click)="switchImg()" [width]="getWidth()"
-         [height]="getHeight()" [src]="getUrl()" alt='Icons' [style.top]="getCoordY()" [style.left]="getCoordX()"/>
+    <img class="icon" (click)="handleClickSwitch()" [width]="width"
+         [height]="height" [src]="url" alt='Icons' [style.top.px]="offsetY" [style.left.px]="offsetX" />
 </div>

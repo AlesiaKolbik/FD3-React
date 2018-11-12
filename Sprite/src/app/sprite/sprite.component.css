@@ -1,0 +1,75 @@
+
+* {
+  box-sizing: border-box;
+}
+
+.sprite {
+  overflow: hidden;
+  position: relative;
+  width: 100px;
+  height: 98.5px;
+}
+
+.icon {
+  position: relative;
+  cursor: pointer;
+}
+
+.facebook {
+  top: 0;
+  left: 0;
+}
+.twitter{
+  top:0;
+  left:-100px;
+}
+.youtube{
+  top:0;
+  left:-200px;
+}
+.instagram{
+  top:0;
+  left:-300px;
+}
+.linkIdn{
+  top:0;
+  left:-400px;
+}
+.t{
+  top:0;
+  left:-500px;
+}
+.google{
+  top:0;
+  left:-600px;
+}
+.facebook2{
+  top:-100px;
+  left:0;
+}
+.twitter2{
+  top:-100px;
+  left:-100px;
+}
+.youtube2{
+  top:-100px;
+  left:-200px;
+}
+.instagram2{
+  top:-100px;
+  left:-300px;
+}
+.linkIdn2{
+  top:-100px;
+  left:-400px;
+}
+.t2{
+  top:-100px;
+  left:-500px;
+}
+.google2{
+  top:-100px;
+  left:-600px;
+}
+
+

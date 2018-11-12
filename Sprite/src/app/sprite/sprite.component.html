@@ -1,4 +1,4 @@
 <div class="sprite">
-  <img [class] = "'icon '+ getCssClass()" (click)="switchImg()" width={{getWidth()}}
-       height={{getHeight()}}  src={{getUrl()}} alt='Icons' />
+    <img class="icon" (click)="switchImg()" [width]="getWidth()"
+         [height]="getHeight()" [src]="getUrl()" alt='Icons' [style.top]="getCoordY()" [style.left]="getCoordX()"/>
 </div>

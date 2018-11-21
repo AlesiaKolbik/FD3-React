@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Output} from '@angular/core';
+import {Component, ElementRef, EventEmitter, Output, ViewChild} from '@angular/core';
 
 @Component({
   selector: 'app-input-number',
@@ -7,10 +7,12 @@ import {Component, EventEmitter, Output} from '@angular/core';
 })
 export class InputNumberComponent{
 
-  @Output('inputNumber')
-  private inputNumber = new EventEmitter();
+  @ViewChild('inputNumber')inputNumberElemRef:ElementRef;
 
-  onClick(e:HTMLInputElement){
-    this.inputNumber.emit(e);
+  @Output('inputNumber')
+  private inputNumber = new EventEmitter<number>();
+
+  onClick(){
+    this.inputNumber.emit(this.inputNumberElemRef.nativeElement.value);
   }
 }

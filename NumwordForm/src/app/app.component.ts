@@ -13,7 +13,7 @@ export class AppComponent {
   getInputNumber():number{
     return this.inputNumber;
   }
-  setInputNumber(e:HTMLInputElement){
-    this.inputNumber = parseInt( e.value);
+  setInputNumber(number:number){
+    this.inputNumber = number;
   }
 }

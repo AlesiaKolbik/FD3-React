@@ -1,3 +1,4 @@
 <label for="input">Сколько у Вас яблок?</label><br>
-<input #inputNumber id="input" type="number">
-<input type="button" (click)="onClick()" value="Отправить">
+<input #inputNumber id="input" type="number" (input)="false">
+
+<div>{{inputNumber.value|numword:'яблоко':'яблока':'яблок'}}</div>

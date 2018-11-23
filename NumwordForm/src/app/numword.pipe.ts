@@ -13,7 +13,7 @@ export class Numword implements PipeTransform {
     else if (input % 10 === 1) {
       return (input + " " + arg1);
     }
-    else if (input >= 2 && input <= 4) {
+    else if (input%10 >= 2 && input%10 <= 4) {
       return (input + " " + arg2);
     }
     return (input + " " + arg3);
